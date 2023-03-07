@@ -19,8 +19,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 import javax.swing.ButtonGroup;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
-public class register extends JFrame {
+public class search extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txteid;
@@ -46,7 +48,7 @@ public class register extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					register frame = new register();
+					search frame = new search();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -82,7 +84,7 @@ public class register extends JFrame {
 	 * Create the frame.
 	 */
 	
-	public register() {
+	public search() {
 		setTitle("Employee Registration");
 		
 		Connect();
@@ -95,7 +97,7 @@ public class register extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Employee ID:");
-		lblNewLabel_1.setBounds(5, 5, 104, 55);
+		lblNewLabel_1.setBounds(5, 5, 91, 55);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_9 = new JLabel("Permenant Address:");
@@ -155,6 +157,77 @@ public class register extends JFrame {
 		contentPane.add(lblNewLabel_13);
 		
 		txteid = new JTextField();
+		txteid.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+			
+				try {
+					String eid=txteid.getText();
+					pst=(PreparedStatement) con.prepareStatement("select * from register where eid=?");
+					pst.setString(1, eid);
+					ResultSet rs=pst.executeQuery();
+					
+					  if(rs.next()==true)
+					  {
+				     	  String fname=rs.getString(2);
+						  String lname=rs.getString(3);
+						  String Gender=rs.getString(4);
+						  String DOB=rs.getString(5);
+						  String Email=rs.getString(6);
+						  String Contact=rs.getString(7);
+						  String Address1=rs.getString(8);
+						  String Address2=rs.getString(9);
+						  String postcodei=rs.getString(10);
+						  String department=rs.getString(11);
+						  String designation=rs.getString(12);
+						  String datehired=rs.getString(13);
+						  String salary=rs.getString(14);
+						  String job=rs.getString(15);
+						  
+						  
+
+							txtfname.setText("fname");
+							txtlname.setText("lname");
+						//	buttonGroup.isSelected(null);
+							txtdob.setText("DOB");
+							txtemail.setText("Email");
+							txtcontact.setText("Contact");
+							txtcaddress.setText("Address1");
+							txtpaddress.setText("Address2");
+							txtpc.setText("postcodei");
+							txtdept.setText("department");
+							txtdesignation.setText("designation");
+							txtdh.setText("datehired");
+							txtsalary.setText("salary");
+							txtjob.setText("job"); 
+					  }
+					  else {
+						  
+						    txteid.setText("");
+							txtfname.setText("");
+							txtlname.setText("");
+							//gender;
+							txtdob.setText("");
+							txtemail.setText("");
+							txtcontact.setText("");
+							txtcaddress.setText("");
+							txtpaddress.setText("");
+							txtpc.setText("");
+							txtdept.setText("");
+							txtdesignation.setText("");
+							txtdh.setText("");
+							txtsalary.setText("");
+							txtjob.setText("");
+						 
+					}
+				
+				} catch (Exception e2) {
+					// TODO: handle exception
+				}
+				
+			
+			}	
+		});
 		txteid.setBounds(85, 22, 146, 20);
 		contentPane.add(txteid);
 		txteid.setColumns(10);
@@ -223,92 +296,6 @@ public class register extends JFrame {
 		txtcaddress.setBounds(97, 407, 234, 38);
 		txtcaddress.setColumns(10);
 		contentPane.add(txtcaddress);
-		
-		JButton btnNewButton = new JButton("Register");
-		btnNewButton.setBounds(416, 406, 129, 34);
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			
-			String eid = txteid.getText();
-			String firstname= txtfname.getText();
-			String lastname = txtlname.getText();
-			String Gender = gender;
-			String DOB =txtdob.getText();
-			String Email = txtemail.getText();
-			String Contact =txtcontact.getText();
-			String Address1 =txtcaddress.getText();
-			String Address2 =txtpaddress.getText();
-			String postalcodei =txtpc.getText();
-			String department =txtdept.getText();
-			String designation = txtdesignation.getText();
-			String datehired =txtdh.getText();
-			String salary=txtsalary.getText();
-			String job = txtjob.getText();
-			
-			try 
-			{
-				pst=(PreparedStatement) con.prepareStatement("insert into register(eid,firstname,lastname,Gender,DOB,Email,Contact,"
-						+ "Address1,Address2,postalcodei,department,designation,datehired,salary,job) "
-						+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-				
-				pst.setString(1, eid);
-				pst.setString(2, firstname);
-				pst.setString(3, lastname);
-				pst.setString(4, Gender);
-				pst.setString(5, DOB);
-				pst.setString(6, Email);
-				pst.setString(7, Contact);
-				pst.setString(8, Address1);
-				pst.setString(9, Address2);
-				pst.setString(10, postalcodei);
-				pst.setString(11, department);
-				pst.setString(12, designation);
-				pst.setString(13, datehired);
-				pst.setString(14, salary);
-				pst.setString(15, job);
-				
-				pst.executeUpdate();
-				
-				JOptionPane.showMessageDialog(null,"Employee Register..");
-			}
-			
-			   catch(SQLException e1)
-			
-			    {
-				   	e1.printStackTrace();
-			    }
-			
-			
-		
-	
-			
-			}
-		});
-		contentPane.add(btnNewButton);
-		
-		JButton btnClear = new JButton("Clear");
-		btnClear.setBounds(581, 406, 129, 34);
-		btnClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				txteid.setText("");
-				txtfname.setText(null);
-				txtlname.setText(null);
-				txtdob.setText(null);
-				txtemail.setText(null);
-				txtcontact.setText(null);
-				txtpaddress.setText(null);
-				txtcaddress.setText(null);
-				txtpc.setText(null);
-				txtdept.setText(null);
-				txtdesignation.setText(null);
-				txtdh.setText(null);
-				txtsalary.setText(null);
-				txtjob.setText(null);
-	
-			}
-		});
-		contentPane.add(btnClear);
 		
 		JRadioButton rdbtnNewRadioButton = new JRadioButton("Male");
 		buttonGroup.add(rdbtnNewRadioButton);

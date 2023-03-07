@@ -2,6 +2,8 @@ package epm;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Main extends JFrame {
 
@@ -23,6 +25,13 @@ public class Main extends JFrame {
         employeeMenu.setFont(new Font("Roboto", Font.PLAIN, 14));
 
         JMenuItem registerItem = new JMenuItem("Register Employee");
+        registerItem.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        	register rg = new register();
+        	rg.main(null);
+        	dispose();
+        	}
+        });
         registerItem.setForeground(Color.WHITE);
         registerItem.setBackground(new Color(45, 52, 54));
         registerItem.setFont(new Font("Roboto", Font.PLAIN, 14));
