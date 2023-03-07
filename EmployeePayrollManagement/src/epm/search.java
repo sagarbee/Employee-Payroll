@@ -40,6 +40,8 @@ public class search extends JFrame {
 	private JTextField txtjob;
 	private JTextField txtcaddress;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
+	JRadioButton rdbtnmale = new JRadioButton("Male");
+
 	private String gender;
 	/**
 	 * Launch the application.
@@ -169,9 +171,9 @@ public class search extends JFrame {
 					
 					  if(rs.next()==true)
 					  {
-				     	  String fname=rs.getString(2);
-						  String lname=rs.getString(3);
-						  String Gender=rs.getString(4);
+						  String fname=rs.getString(3);
+						  String lname=rs.getString(4);
+						  String Gender=rs.getString(2);
 						  String DOB=rs.getString(5);
 						  String Email=rs.getString(6);
 						  String Contact=rs.getString(7);
@@ -184,29 +186,28 @@ public class search extends JFrame {
 						  String salary=rs.getString(14);
 						  String job=rs.getString(15);
 						  
+						 
 						  
-
-							txtfname.setText("fname");
-							txtlname.setText("lname");
-						//	buttonGroup.isSelected(null);
-							txtdob.setText("DOB");
-							txtemail.setText("Email");
-							txtcontact.setText("Contact");
-							txtcaddress.setText("Address1");
-							txtpaddress.setText("Address2");
-							txtpc.setText("postcodei");
-							txtdept.setText("department");
-							txtdesignation.setText("designation");
-							txtdh.setText("datehired");
-							txtsalary.setText("salary");
-							txtjob.setText("job"); 
+							txtfname.setText(fname);
+							txtlname.setText(lname);
+							//buttonGroup.setSelected(null, rootPaneCheckingEnabled);
+							txtdob.setText(DOB);
+							txtemail.setText(Email);
+							txtcontact.setText(Contact);
+							txtcaddress.setText(Address1);
+							txtpaddress.setText(Address2);
+							txtpc.setText(postcodei);
+							txtdept.setText(department);
+							txtdesignation.setText(designation);
+							txtdh.setText(datehired);
+							txtsalary.setText(salary);
+							txtjob.setText(job); 
 					  }
 					  else {
 						  
 						    txteid.setText("");
 							txtfname.setText("");
 							txtlname.setText("");
-							//gender;
 							txtdob.setText("");
 							txtemail.setText("");
 							txtcontact.setText("");
@@ -296,16 +297,9 @@ public class search extends JFrame {
 		txtcaddress.setBounds(97, 407, 234, 38);
 		txtcaddress.setColumns(10);
 		contentPane.add(txtcaddress);
-		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Male");
-		buttonGroup.add(rdbtnNewRadioButton);
-		rdbtnNewRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			gender = "male";
-			}
-		});
-		rdbtnNewRadioButton.setBounds(75, 186, 63, 23);
-		contentPane.add(rdbtnNewRadioButton);
+		buttonGroup.add(rdbtnmale);
+		rdbtnmale.setBounds(75, 186, 63, 23);
+		contentPane.add(rdbtnmale);
 		
 		JRadioButton rdbtnFemale = new JRadioButton("Female");
 		buttonGroup.add(rdbtnFemale);
